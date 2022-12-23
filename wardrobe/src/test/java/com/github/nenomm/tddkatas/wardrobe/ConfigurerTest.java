@@ -3,7 +3,7 @@ package com.github.nenomm.tddkatas.wardrobe;
 import static com.github.nenomm.tddkatas.wardrobe.Configurer.Size.L;
 import static com.github.nenomm.tddkatas.wardrobe.Configurer.Size.M;
 import static com.github.nenomm.tddkatas.wardrobe.Configurer.Size.S;
-import static com.github.nenomm.tddkatas.wardrobe.Configurer.Size.XL;
+import static com.github.nenomm.tddkatas.wardrobe.Configurer.Size.X;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.empty;
@@ -41,7 +41,7 @@ public class ConfigurerTest {
 
   @Test
   public void fitSeveral() {
-    configurer = new Configurer(S, M, L, XL);
+    configurer = new Configurer(S, M, L, X);
     assertThat(configurer.getAllCombinationsForLength(125), containsInAnyOrder("SS", "SM", "L", "XL"));
   }
 }

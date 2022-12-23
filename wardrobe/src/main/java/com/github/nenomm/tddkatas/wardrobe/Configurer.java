@@ -13,7 +13,7 @@ public class Configurer {
     S(50),
     M(75),
     L(100),
-    XL(120);
+    X(120);
     private int length;
 
     Size(int length) {
