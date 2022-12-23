@@ -1,7 +1,9 @@
 package com.github.nenomm.tddkatas.wardrobe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -10,18 +12,25 @@ import java.util.stream.Collectors;
 public class Configurer {
 
   public enum Size implements Comparable<Size> {
-    S(50),
-    M(75),
-    L(100),
-    X(120);
+    S(50, 59),
+    M(75, 62),
+    L(100, 90),
+    X(120, 111);
     private int length;
 
-    Size(int length) {
+    private int price;
+
+    Size(int length, int price) {
       this.length = length;
+      this.price = price;
     }
 
     public int getLength() {
       return length;
+    }
+
+    public int getPrice() {
+      return price;
     }
   }
 
@@ -37,6 +46,19 @@ public class Configurer {
     visitNextCombination(length, allCombinations, new ArrayList<Size>());
 
     return ignoreDuplicates(allCombinations);
+  }
+
+  public String getCheapestCombination(int length) {
+    return getAllCombinationsForLength(length).stream()
+        .map(combination -> new Object[]{combination,
+            Arrays.stream(combination.split(""))
+                .map(Size::valueOf)
+                .map(Size::getPrice)
+                .reduce(0, Integer::sum)})
+        .sorted(Comparator.comparingInt(o -> (int) o[1]))
+        .findFirst()
+        .map(objects -> (String) objects[0])
+        .orElse(null);
   }
 
   protected static Set<String> ignoreDuplicates(List<List<Size>> allCombinations) {
@@ -55,7 +77,7 @@ public class Configurer {
       List<Size> candidates = getCandidates(leftoverLength);
       if (candidates.isEmpty()) {
         if (!path.isEmpty()) {
-          allCombinations.add(path);
+          // allCombinations.add(path); - no, it must be an exact match
         }
         // else abort
       } else {

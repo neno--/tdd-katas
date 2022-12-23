@@ -11,6 +11,7 @@ public class Runner {
   public static void main(String[] args) {
     final Configurer configurer = new Configurer(S, M, L, X);
     System.out.println(configurer.getAllCombinationsForLength(250));
+    System.out.println(configurer.getCheapestCombination(250));
   }
 
 }
