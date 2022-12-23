@@ -19,6 +19,10 @@ public class Configurer {
     Size(int length) {
       this.length = length;
     }
+
+    public int getLength() {
+      return length;
+    }
   }
 
   private final Set<Size> availableSizes = new TreeSet<>();
@@ -32,10 +36,15 @@ public class Configurer {
 
     visitNextCombination(length, allCombinations, new ArrayList<Size>());
 
+    return ignoreDuplicates(allCombinations);
+  }
+
+  protected static Set<String> ignoreDuplicates(List<List<Size>> allCombinations) {
     return allCombinations.stream()
         .map(sizes -> {
-          Collections.sort(sizes);
-          return sizes.stream().reduce("", (string, size) -> String.format("%s%s", string, size), (s1, s2) -> s1 + s2);
+          final List<Size> copyOfSized = new ArrayList(sizes);
+          Collections.sort(copyOfSized);
+          return copyOfSized.stream().reduce("", (string, size) -> String.format("%s%s", string, size), (s1, s2) -> s1 + s2);
         }).collect(Collectors.toSet());
   }
 
@@ -43,11 +52,20 @@ public class Configurer {
     if (leftoverLength < 0) {
       // abort
     } else if (leftoverLength > 0) {
-      for (Size size : getCandidates(leftoverLength)) {
-        final List<Size> newCombination = new ArrayList<>(path);
-        newCombination.add(size);
-        visitNextCombination(leftoverLength - size.length, allCombinations, newCombination);
+      List<Size> candidates = getCandidates(leftoverLength);
+      if (candidates.isEmpty()) {
+        if (!path.isEmpty()) {
+          allCombinations.add(path);
+        }
+        // else abort
+      } else {
+        for (Size size : getCandidates(leftoverLength)) {
+          final List<Size> newCombination = new ArrayList<>(path);
+          newCombination.add(size);
+          visitNextCombination(leftoverLength - size.length, allCombinations, newCombination);
+        }
       }
+
     } else if (!path.isEmpty()) {
       allCombinations.add(path);
     }
@@ -55,7 +73,7 @@ public class Configurer {
 
   private List<Size> getCandidates(int length) {
     return availableSizes.stream()
-        .filter(size -> size.length >= length)
+        .filter(size -> size.length <= length)
         .collect(Collectors.toList());
   }
 }
