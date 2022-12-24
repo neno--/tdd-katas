@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.hasSize;
 import com.github.nenomm.tddkatas.wardrobe.Configurer.Size;
 import java.util.List;
 import java.util.Set;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ConfigurerTest {
@@ -33,12 +34,16 @@ public class ConfigurerTest {
     assertThat(result, containsInAnyOrder("M", "SM"));
   }
 
+  // not available after refactor to use exact match and price
+  @Disabled
   @Test
   public void fitOnlyOne() {
     configurer = new Configurer(S, M);
     assertThat(configurer.getAllCombinationsForLength(M.getLength()), containsInAnyOrder("S", "M"));
   }
 
+  // not available after refactor to use exact match and price
+  @Disabled
   @Test
   public void fitSeveral() {
     configurer = new Configurer(S, M, L, X);
