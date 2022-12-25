@@ -9,6 +9,7 @@
     <module>christmas-lights</module>
     <module>wardrobe</module>
     <module>elephant-carpaccio</module>
+    <module>fizzbuzz</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
