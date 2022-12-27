@@ -10,6 +10,7 @@
     <module>wardrobe</module>
     <module>elephant-carpaccio</module>
     <module>fizzbuzz</module>
+    <module>ohce</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
