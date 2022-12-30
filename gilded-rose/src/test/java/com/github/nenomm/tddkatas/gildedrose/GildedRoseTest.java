@@ -256,5 +256,79 @@ class GildedRoseTest {
     assertEquals(0, app.items[0].quality);
   }
 
+  @Test
+  void conjuredItemDecreaseInValueByTwo() {
+    final String name = "Conjured Elixir of the Mongoose";
+    final int initialSellin = 5;
+    final int initialQuality = 3;
 
+    // given
+    item = new Item(name, initialSellin, initialQuality);
+    GildedRose app = new GildedRose(new Item[]{item});
+
+    // when
+    app.updateQuality();
+
+    // then
+    assertEquals(name, app.items[0].name);
+    assertEquals(4, app.items[0].sellIn);
+    assertEquals(1, app.items[0].quality);
+  }
+
+  @Test
+  void conjuredItemMinQualityIsZero() {
+    final String name = "Conjured Elixir of the Mongoose";
+    final int initialSellin = 5;
+    final int initialQuality = 0;
+
+    // given
+    item = new Item(name, initialSellin, initialQuality);
+    GildedRose app = new GildedRose(new Item[]{item});
+
+    // when
+    app.updateQuality();
+
+    // then
+    assertEquals(name, app.items[0].name);
+    assertEquals(4, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+  }
+
+  @Test
+  void conjuredItemQualityDecreasesTwiceAsFastAfterSellByDate() {
+    final String name = "Conjured Elixir of the Mongoose";
+    final int initialSellin = 0;
+    final int initialQuality = 5;
+
+    // given
+    item = new Item(name, initialSellin, initialQuality);
+    GildedRose app = new GildedRose(new Item[]{item});
+
+    // when
+    app.updateQuality();
+
+    // then
+    assertEquals(name, app.items[0].name);
+    assertEquals(-1, app.items[0].sellIn);
+    assertEquals(1, app.items[0].quality);
+  }
+
+  @Test
+  void conjuredItemQualityDecreasesTwiceAsFastAfterSellByDateButCannotBeLessThanZero() {
+    final String name = "Conjured Elixir of the Mongoose";
+    final int initialSellin = 0;
+    final int initialQuality = 1;
+
+    // given
+    item = new Item(name, initialSellin, initialQuality);
+    GildedRose app = new GildedRose(new Item[]{item});
+
+    // when
+    app.updateQuality();
+
+    // then
+    assertEquals(name, app.items[0].name);
+    assertEquals(-1, app.items[0].sellIn);
+    assertEquals(0, app.items[0].quality);
+  }
 }

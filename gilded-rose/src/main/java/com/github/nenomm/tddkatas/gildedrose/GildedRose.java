@@ -32,6 +32,12 @@ class GildedRose {
         } else {
           item.quality = 0;
         }
+      } else if (item.name.startsWith("Conjured")) {
+        if (item.sellIn > 0) {
+          item.quality -= 2;
+        } else {
+          item.quality -= 4;
+        }
       } else {
         // normal item
         if (item.sellIn > 0) {
