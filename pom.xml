@@ -12,6 +12,7 @@
     <module>fizzbuzz</module>
     <module>ohce</module>
     <module>gilded-rose</module>
+    <module>bowling</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
