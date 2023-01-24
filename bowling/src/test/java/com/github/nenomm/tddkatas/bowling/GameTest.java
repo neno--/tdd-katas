@@ -86,4 +86,117 @@ public class GameTest {
     // then
     assertEquals(14, game.score());
   }
+
+  @Test
+  public void nextTwoRollsAddStrikePoints() {
+    // given
+    final Game game = new Game();
+
+    // when
+    game.roll(10);
+    game.roll(5);
+    game.roll(2);
+
+    // then
+    assertEquals(24, game.score());
+  }
+
+  @Test
+  public void shouldBe30() {
+    // given
+    final Game game = new Game();
+
+    // when
+    game.roll(10);
+    game.roll(10);
+
+    // then
+    assertEquals(30, game.score());
+  }
+
+  @Test
+  public void shouldBe60() {
+    // given
+    final Game game = new Game();
+
+    // when
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+
+    // then
+    assertEquals(60, game.score());
+  }
+
+  @Test
+  public void perfectGameWithoutExtensionsIs270() {
+    // given
+    final Game game = new Game();
+
+    // when
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+
+    // then
+    assertEquals(270, game.score());
+  }
+
+  @Test
+  public void perfectGameWithOneExtensionsIs290() {
+    // given
+    final Game game = new Game();
+
+    // when
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    // extension
+    game.roll(10);
+
+    // then
+    assertEquals(290, game.score());
+  }
+
+  @Test
+  public void perfectGameis300() {
+    // given
+    final Game game = new Game();
+
+    // when
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+    game.roll(10);
+
+    // additional rolls
+    game.roll(10);
+    game.roll(10);
+
+
+    // then
+    assertEquals(300, game.score());
+  }
+
+
 }
