@@ -23,12 +23,16 @@ public class Game {
   private boolean end = false;
   private boolean extended = false;
   private int extraRolls = 0;
+  private int nonScoredExtensionRoll = 0;
 
   public Game() {
     Arrays.fill(spareBonusRollsForFrame, -1);
+
     for (int i = 0; i < strikeBonusRollsForFrame.length; i++) {
       Arrays.fill(strikeBonusRollsForFrame[i], -1);
     }
+
+    Arrays.fill(scoreForRoll, -1);
   }
 
   public void roll(int n) {
@@ -41,7 +45,9 @@ public class Game {
         updateScore(n);
         updateStep();
       } else {
+        updateScore(n);
         extraRolls--;
+        nonScoredExtensionRoll++;
         if (extraRolls == 0) {
           end = true;
         }
@@ -51,7 +57,11 @@ public class Game {
   }
 
   public int score() {
-    return spareBonuses() + strikeBonuses() + Arrays.stream(scoreForRoll).sum();
+    return spareBonuses() + strikeBonuses() +
+        Arrays.stream(scoreForRoll)
+            .takeWhile(value -> value != -1)
+            .limit(roll - nonScoredExtensionRoll)
+            .sum();
   }
 
   private void validateNumberOfPins(int n) {
@@ -117,7 +127,7 @@ public class Game {
   private int strikeBonuses() {
     return Arrays.stream(strikeBonusRollsForFrame)
         .filter(ints -> ints[0] != -1)
-        .mapToInt(rolls -> scoreForRoll[rolls[0]] + scoreForRoll[rolls[1]])
+        .mapToInt(rolls -> Math.max(scoreForRoll[rolls[0]], 0) + Math.max(scoreForRoll[rolls[1]], 0))
         .sum();
   }
 }

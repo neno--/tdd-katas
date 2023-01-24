@@ -193,10 +193,7 @@ public class GameTest {
     game.roll(10);
     game.roll(10);
 
-
     // then
     assertEquals(300, game.score());
   }
-
-
 }
