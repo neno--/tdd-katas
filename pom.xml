@@ -13,6 +13,7 @@
     <module>ohce</module>
     <module>gilded-rose</module>
     <module>bowling</module>
+    <module>trivia</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
