@@ -3,17 +3,18 @@ package com.github.nenomm.tddkatas.trivia;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 // https://kata-log.rocks/ugly-trivia-kata
 public class Game {
 
+  private static final short MAX_PLAYERS = 6;
+  private static final short NUM_OF_QUESTIONS = 50;
   private final PrintStream out;
-
-  ArrayList players = new ArrayList();
-  int[] places = new int[6];
-  int[] purses = new int[6];
-  boolean[] inPenaltyBox = new boolean[6];
-
+  private final List<String> players = new ArrayList(MAX_PLAYERS);
+  private final int[] places = new int[MAX_PLAYERS];
+  private final int[] purses = new int[MAX_PLAYERS];
+  private final boolean[] inPenaltyBox = new boolean[MAX_PLAYERS];
   LinkedList popQuestions = new LinkedList();
   LinkedList scienceQuestions = new LinkedList();
   LinkedList sportsQuestions = new LinkedList();
@@ -24,18 +25,18 @@ public class Game {
 
   public Game(PrintStream out) {
     this.out = out;
+    initializeQuestions();
+  }
 
-    for (int i = 0; i < 50; i++) {
+  private void initializeQuestions() {
+    for (int i = 0; i < NUM_OF_QUESTIONS; i++) {
       popQuestions.addLast("Pop Question " + i);
       scienceQuestions.addLast(("Science Question " + i));
       sportsQuestions.addLast(("Sports Question " + i));
-      rockQuestions.addLast(createRockQuestion(i));
+      rockQuestions.addLast("Rock Question " + i);
     }
   }
 
-  public String createRockQuestion(int index) {
-    return "Rock Question " + index;
-  }
 
   public boolean isPlayable() {
     return (howManyPlayers() >= 2);
