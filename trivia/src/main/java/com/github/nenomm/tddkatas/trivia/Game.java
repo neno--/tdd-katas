@@ -35,6 +35,20 @@ public class Game {
   Player currentPlayer = null;
   boolean isGettingOutOfPenaltyBox;
 
+  private final QuestionCategory[] positions = {
+      QuestionCategory.POP,
+      QuestionCategory.SCIENCE,
+      QuestionCategory.SPORTS,
+      null,
+      QuestionCategory.POP,
+      QuestionCategory.SCIENCE,
+      QuestionCategory.SPORTS,
+      null,
+      QuestionCategory.POP,
+      QuestionCategory.SCIENCE,
+      QuestionCategory.SPORTS
+  };
+
   public Game(PrintStream out) {
     this.out = out;
     initializeQuestions();
@@ -88,7 +102,6 @@ public class Game {
       displayCategory();
       askQuestion();
     }
-
   }
 
   private void askQuestion() {
@@ -96,34 +109,11 @@ public class Game {
   }
 
   private QuestionCategory currentCategory() {
-    if (currentPlayer.getPosition() == 0) {
-      return QuestionCategory.POP;
+    if (((currentPlayer.getPosition() + 1) <= positions.length) && (positions[currentPlayer.getPosition()] != null)) {
+      return positions[currentPlayer.getPosition()];
+    } else {
+      return QuestionCategory.ROCK;
     }
-    if (currentPlayer.getPosition() == 4) {
-      return QuestionCategory.POP;
-    }
-    if (currentPlayer.getPosition() == 8) {
-      return QuestionCategory.POP;
-    }
-    if (currentPlayer.getPosition() == 1) {
-      return QuestionCategory.SCIENCE;
-    }
-    if (currentPlayer.getPosition() == 5) {
-      return QuestionCategory.SCIENCE;
-    }
-    if (currentPlayer.getPosition() == 9) {
-      return QuestionCategory.SCIENCE;
-    }
-    if (currentPlayer.getPosition() == 02) {
-      return QuestionCategory.SPORTS;
-    }
-    if (currentPlayer.getPosition() == 6) {
-      return QuestionCategory.SPORTS;
-    }
-    if (currentPlayer.getPosition() == 10) {
-      return QuestionCategory.SPORTS;
-    }
-    return QuestionCategory.ROCK;
   }
 
   public boolean wasCorrectlyAnswered() {

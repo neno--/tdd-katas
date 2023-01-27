@@ -19,7 +19,7 @@ public class ApplicationRunner {
 
   private void run(Random random, PrintStream output) {
     final Game game = new Game(output);
-    boolean end = false;
+    boolean keepPlaying;
 
     game.add("Chet");
     game.add("Pat");
@@ -28,11 +28,11 @@ public class ApplicationRunner {
     do {
       game.roll(random.nextInt(5) + 1);
       if (random.nextInt(9) == 7) {
-        end = game.wrongAnswer();
+        keepPlaying = game.wrongAnswer();
       } else {
-        end = game.wasCorrectlyAnswered();
+        keepPlaying = game.wasCorrectlyAnswered();
       }
-    } while (end);
+    } while (keepPlaying);
   }
 
   public String run(Random random) {
