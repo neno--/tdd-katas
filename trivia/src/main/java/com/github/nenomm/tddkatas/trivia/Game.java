@@ -63,7 +63,7 @@ public class Game {
     }
   }
 
-  public boolean add(String playerName) {
+  public void add(String playerName) {
     final Player newPlayer = new Player(playerName);
 
     if (players.isEmpty()) {
@@ -74,7 +74,6 @@ public class Game {
 
     out.println(playerName + " was added");
     out.println("They are player number " + players.size());
-    return true;
   }
 
   public void roll(int roll) {
