@@ -16,12 +16,20 @@ public class Account {
   }
 
   public void deposit(int amount) {
+    validateAmount(amount);
+
     balance += amount;
     addNewlineIfNeeded();
     transactionLog.append(createRow(amount));
   }
 
   public void withdraw(int amount) {
+    validateAmount(amount);
+
+    if (amount > balance) {
+      throw new IllegalStateException("Withdraw amount is too high");
+    }
+
     balance -= amount;
     addNewlineIfNeeded();
     transactionLog.append(createRow(-amount));
@@ -60,5 +68,11 @@ public class Account {
 
   private void addHeader(StringBuilder stringBuilder) {
     stringBuilder.append(String.format(HEADER_FORMAT, "Date", "Amount", "Balance"));
+  }
+
+  private void validateAmount(int amount) {
+    if (amount <= 0) {
+      throw new IllegalArgumentException("Invalid amount");
+    }
   }
 }

@@ -1,6 +1,7 @@
 package com.github.nenomm.tddkatas.banking;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -72,5 +73,35 @@ public class AccountTest {
     assertEquals("Date        Amount  Balance", lines[0]);
     assertEquals("24.12.2015   +500      500", lines[1]);
     assertEquals("23.8.2016    -100      400", lines[2]);
+  }
+
+  @Test
+  public void cannotDepositNegativeAmount() {
+    final DateProvider dateProvider = mock(DateProvider.class);
+    when(dateProvider.dateString()).thenReturn("24.12.2015").thenReturn("23.8.2016");
+    final Account account = new Account(dateProvider);
+
+    assertThrowsExactly(IllegalArgumentException.class, () -> account.deposit(-600));
+  }
+
+  @Test
+  public void cannotWithdrawNegativeAmount() {
+    final DateProvider dateProvider = mock(DateProvider.class);
+    when(dateProvider.dateString()).thenReturn("24.12.2015").thenReturn("23.8.2016");
+    final Account account = new Account(dateProvider);
+
+    account.deposit(500);
+    assertThrowsExactly(IllegalArgumentException.class, () -> account.withdraw(-50));
+  }
+
+  @Test
+  public void cannotWithdrawMoreThanDeposited() {
+    final DateProvider dateProvider = mock(DateProvider.class);
+    when(dateProvider.dateString()).thenReturn("24.12.2015").thenReturn("23.8.2016");
+    final Account account = new Account(dateProvider);
+
+    account.deposit(500);
+
+    assertThrowsExactly(IllegalStateException.class, () -> account.withdraw(600));
   }
 }
