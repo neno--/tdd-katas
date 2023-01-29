@@ -14,6 +14,7 @@
     <module>gilded-rose</module>
     <module>bowling</module>
     <module>trivia</module>
+    <module>banking</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
