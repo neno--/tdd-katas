@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
-public class InstandDateProviderTest {
+public class InstantDateProviderTest {
 
   private static Supplier<Instant> getProvider(ZonedDateTime zonedDateTime) {
     return () -> zonedDateTime.toInstant();
