@@ -15,6 +15,7 @@
     <module>bowling</module>
     <module>trivia</module>
     <module>banking</module>
+    <module>tictactoe</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
