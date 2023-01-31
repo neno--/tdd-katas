@@ -83,14 +83,17 @@ public class TicTacToeTest {
   public void fullBoardEndsTheGame() {
     final TicTacToe ticTacToe = new TicTacToe();
 
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        if ((i == 2) && (j == 2)) {
-          break;
-        }
-        ticTacToe.put(i, j);
-      }
-    }
+    ticTacToe.put(0, 0);
+    ticTacToe.put(0, 1);
+
+    ticTacToe.put(1, 0);
+    ticTacToe.put(1, 1);
+
+    ticTacToe.put(2, 1);
+    ticTacToe.put(2, 0);
+
+    ticTacToe.put(0, 2);
+    ticTacToe.put(1, 2);
 
     assertFalse(ticTacToe.isFinished());
     assertTrue(ticTacToe.getWinner().isEmpty());
