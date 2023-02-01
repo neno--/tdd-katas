@@ -79,4 +79,16 @@ public class RoverCommandTranslatorTest {
     assertEquals(-5, translator.getY());
     assertEquals(N, translator.getOrientation());
   }
+
+  @Test
+  public void obstacleCancelsTheRestOfTheCommands() {
+    final RoverCommandTranslator translator = new RoverCommandTranslator(0, 0, N);
+
+    final boolean endOfTrip = translator.receive('f', 'f');
+
+    assertEquals(false, endOfTrip);
+    assertEquals(0, translator.getX());
+    assertEquals(1, translator.getY());
+    assertEquals(N, translator.getOrientation());
+  }
 }

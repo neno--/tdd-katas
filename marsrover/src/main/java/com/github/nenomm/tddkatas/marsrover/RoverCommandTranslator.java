@@ -23,23 +23,31 @@ public class RoverCommandTranslator {
     obstacles[3][6] = true;
   }
 
-  public void receive(char... commands) {
+  public boolean receive(char... commands) {
     for (char c : commands) {
-      switch (c) {
-        case 'f':
-          goForward();
-          break;
-        case 'b':
-          goBackward();
-          break;
-        case 'l':
-          turnLeft();
-          break;
-        case 'r':
-          turnRight();
-          break;
+      final boolean obstacle = execute(c);
+      if (obstacle) {
+        return false;
       }
     }
+    return true;
+  }
+
+  private boolean execute(char c) {
+    switch (c) {
+      case 'f':
+        return goForward();
+      case 'b':
+        return goBackward();
+      case 'l':
+        turnLeft();
+        return false;
+      case 'r':
+        turnRight();
+        return false;
+    }
+
+    throw new IllegalStateException();
   }
 
   private void turnRight() {
@@ -57,18 +65,30 @@ public class RoverCommandTranslator {
     orientation = Orientation.mapping[index];
   }
 
-  private void goBackward() {
+  private boolean goBackward() {
     final int[] result = calculateNextBackwardStep(x, y);
 
-    x = result[0];
-    y = result[1];
+    if (checkObstacle(result[0], result[1])) {
+      return false;
+    } else {
+      x = result[0];
+      y = result[1];
+
+      return true;
+    }
   }
 
-  private void goForward() {
+  private boolean goForward() {
     final int[] result = calculateNextForwardStep(x, y);
 
-    x = result[0];
-    y = result[1];
+    if (checkObstacle(result[0], result[1])) {
+      return false;
+    } else {
+      x = result[0];
+      y = result[1];
+
+      return true;
+    }
   }
 
   private int[] calculateNextForwardStep(int x, int y) {
