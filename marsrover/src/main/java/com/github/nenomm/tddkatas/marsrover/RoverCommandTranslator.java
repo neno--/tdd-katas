@@ -36,9 +36,9 @@ public class RoverCommandTranslator {
   private boolean execute(char c) {
     switch (c) {
       case 'f':
-        return goForward();
+        return updatePosition(calculateNextForwardStep(x, y));
       case 'b':
-        return goBackward();
+        return updatePosition(calculateNextBackwardStep(x, y));
       case 'l':
         turnLeft();
         return false;
@@ -65,27 +65,12 @@ public class RoverCommandTranslator {
     orientation = Orientation.mapping[index];
   }
 
-  private boolean goBackward() {
-    final int[] result = calculateNextBackwardStep(x, y);
-
-    if (checkObstacle(result[0], result[1])) {
+  private boolean updatePosition(int[] nextPosition) {
+    if (checkObstacle(nextPosition[0], nextPosition[1])) {
       return false;
     } else {
-      x = result[0];
-      y = result[1];
-
-      return true;
-    }
-  }
-
-  private boolean goForward() {
-    final int[] result = calculateNextForwardStep(x, y);
-
-    if (checkObstacle(result[0], result[1])) {
-      return false;
-    } else {
-      x = result[0];
-      y = result[1];
+      x = nextPosition[0];
+      y = nextPosition[1];
 
       return true;
     }
