@@ -2,6 +2,8 @@ package com.github.nenomm.tddkatas.marsrover;
 
 public class RoverCommandTranslator {
 
+  private final int WORLD_HEIGHT = 10;
+  private final int WORLD_WIDTH = 10;
   private int x;
   private int y;
   private Orientation orientation;
@@ -30,7 +32,6 @@ public class RoverCommandTranslator {
       }
 
     }
-
   }
 
   private void turnRight() {
@@ -51,16 +52,16 @@ public class RoverCommandTranslator {
   private void goBackward() {
     switch (orientation) {
       case N:
-        y -= 1;
+        decY();
         break;
       case S:
-        y += 1;
+        incY();
         break;
       case E:
-        x += 1;
+        incX();
         break;
       case W:
-        x -= 1;
+        decX();
         break;
     }
   }
@@ -68,17 +69,45 @@ public class RoverCommandTranslator {
   private void goForward() {
     switch (orientation) {
       case N:
-        y += 1;
+        incY();
         break;
       case S:
-        y -= 1;
+        decY();
         break;
       case E:
-        x -= 1;
+        decX();
         break;
       case W:
-        x += 1;
+        incX();
         break;
+    }
+  }
+
+  private void incX() {
+    x++;
+    if (x > WORLD_WIDTH / 2) {
+      x = -WORLD_WIDTH / 2;
+    }
+  }
+
+  private void decX() {
+    x--;
+    if (x < -WORLD_WIDTH / 2) {
+      x = WORLD_WIDTH / 2;
+    }
+  }
+
+  private void incY() {
+    y++;
+    if (y > WORLD_HEIGHT / 2) {
+      y = -WORLD_HEIGHT / 2;
+    }
+  }
+
+  private void decY() {
+    y--;
+    if (y < -WORLD_HEIGHT / 2) {
+      y = WORLD_HEIGHT / 2;
     }
   }
 

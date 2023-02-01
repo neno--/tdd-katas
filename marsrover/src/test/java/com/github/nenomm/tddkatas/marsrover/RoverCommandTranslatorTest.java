@@ -68,4 +68,15 @@ public class RoverCommandTranslatorTest {
     assertEquals(0, translator.getY());
     assertEquals(E, translator.getOrientation());
   }
+
+  @Test
+  public void moveOutsideOfNorthTakesUsToWest() {
+    final RoverCommandTranslator translator = new RoverCommandTranslator(0, 5, N);
+
+    translator.receive('f');
+
+    assertEquals(0, translator.getX());
+    assertEquals(-5, translator.getY());
+    assertEquals(N, translator.getOrientation());
+  }
 }
