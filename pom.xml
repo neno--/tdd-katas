@@ -16,6 +16,7 @@
     <module>trivia</module>
     <module>banking</module>
     <module>tictactoe</module>
+    <module>marsrover</module>
   </modules>
   <name>tdd-katas</name>
   <url>http://maven.apache.org</url>
